@@ -12,7 +12,7 @@ import lombok.*;
 @Table(name = "wp_commentmeta")
 @AllArgsConstructor
 @NoArgsConstructor
-public class WpCommentmeta {
+public class WpCommentMeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "meta_id")

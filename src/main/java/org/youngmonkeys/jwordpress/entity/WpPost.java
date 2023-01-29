@@ -1,9 +1,10 @@
 package org.youngmonkeys.jwordpress.entity;
+
+import lombok.*;
+
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-import javax.persistence.*;
-import javax.persistence.Column;
-import lombok.*;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import lombok.*;
 public class WpPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private BigInteger id;
 
     @Column(name = "post_author")
     private BigInteger postAuthor;
