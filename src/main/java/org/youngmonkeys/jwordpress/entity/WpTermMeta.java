@@ -12,7 +12,7 @@ import lombok.*;
 @Table(name = "wp_termmeta")
 @AllArgsConstructor
 @NoArgsConstructor
-public class WpTermmeta {
+public class WpTermMeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "meta_id")
