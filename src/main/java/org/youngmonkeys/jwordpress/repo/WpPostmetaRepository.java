@@ -1,9 +1,14 @@
 package org.youngmonkeys.jwordpress.repo;
 
 import com.tvd12.ezydata.database.EzyDatabaseRepository;
-import org.youngmonkeys.jwordpress.entity.WpPostmeta;
+import com.tvd12.ezyfox.database.annotation.EzyRepository;
+import org.youngmonkeys.jwordpress.entity.WpPostMeta;
 
 import java.math.BigInteger;
+import java.util.List;
 
-public interface WpPostmetaRepository extends EzyDatabaseRepository<BigInteger, WpPostmeta> {
+@EzyRepository
+public interface WpPostMetaRepository extends EzyDatabaseRepository<BigInteger, WpPostMeta> {
+
+    List<WpPostMeta> findByPostId(BigInteger postId);
 }
