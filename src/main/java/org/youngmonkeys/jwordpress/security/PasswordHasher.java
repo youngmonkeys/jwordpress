@@ -8,8 +8,25 @@ import java.util.Arrays;
 /**
  * Generates and verifies password hashes.
  */
-@SuppressWarnings({"JavadocParagraph", "Indentation", "SummaryJavadoc", "JavadocParagraph", "LineLength"})
+@SuppressWarnings({
+        "JavadocParagraph",
+        "Indentation",
+        "SummaryJavadoc",
+        "JavadocParagraph",
+        "LineLength"
+})
 public class PasswordHasher {
+
+    private final String id;
+    private final int saltSize;
+    private final int hashSize;
+    private final int hashIterations;
+
+    private static final String DEFAULT_ID = "$P$";
+    private static final String DEFAULT_ALGORITHM = "MD5";
+    private static final int DEFAULT_SALT_SIZE = 8;
+    private static final int DEFAULT_HASH_SIZE = 34;
+    private static final int DEFAULT_HASH_ITERATIONS = 8;
 
     /**
      * Non-standard compliant Base64 character mapping.
@@ -23,20 +40,32 @@ public class PasswordHasher {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
-    private static final int HASH_ITERATIONS = 8;
-
-    private static final int HASH_SIZE = 34;
-
     private final MessageDigest messageDigest;
     private final SecureRandom secureRandom;
 
-    public PasswordHasher() {
-        secureRandom = new SecureRandom();
-        try {
-            messageDigest = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException(e);
-        }
+    public PasswordHasher() throws NoSuchAlgorithmException {
+        this(
+                DEFAULT_ALGORITHM,
+                DEFAULT_ID,
+                DEFAULT_SALT_SIZE,
+                DEFAULT_HASH_SIZE,
+                DEFAULT_HASH_ITERATIONS
+        );
+    }
+
+    public PasswordHasher(
+            String algorithm,
+            String id,
+            int saltSize,
+            int hashSize,
+            int hashIterations
+    ) throws NoSuchAlgorithmException {
+        this.id = id;
+        this.saltSize = saltSize;
+        this.hashSize = hashSize;
+        this.hashIterations = hashIterations;
+        this.secureRandom = new SecureRandom();
+        this.messageDigest = MessageDigest.getInstance(algorithm);
     }
 
     /**
@@ -58,7 +87,7 @@ public class PasswordHasher {
         String salt = setting.substring(4, 12);
         // The index in our mapping table of the 4th character of the setting is
         // used to determine the number of times we apply the SHA512 hashing
-        int log2Iterations = new String(BASE64_CHAR_MAPPING).indexOf(setting.substring(3, 4));
+        int log2Iterations = base64CharPosition(setting.charAt(3));
         // We apply the SHA-512 hashing log2Iterations^2 times
         int iterations = 1 << log2Iterations;
 
@@ -77,8 +106,7 @@ public class PasswordHasher {
         // I have no idea why we have to truncate the hash at HASH_SIZE characters;
         // in fact that sounds incredibly wrong in every way possible, but that's
         // what PHPass does so we have to mimic the behavior
-        String truncatedEncodedHash = encodedHash.substring(0, HASH_SIZE);
-        return truncatedEncodedHash;
+        return encodedHash.substring(0, hashSize);
     }
 
     /**
@@ -92,21 +120,19 @@ public class PasswordHasher {
      * Generates a random Base64 salt prefixed with settings for the hash.
      */
     private String generateSetting() {
-        String algorithm = "$P$"; // Always use SHA512
-        String iterations = Character.toString(BASE64_CHAR_MAPPING[HASH_ITERATIONS]);
-        String salt = generateRandomSalt(8);
-
-        return algorithm + iterations + salt;
+        String iterations = String.valueOf(BASE64_CHAR_MAPPING[hashIterations]);
+        String salt = generateRandomSalt();
+        return id + iterations + salt;
     }
 
     /**
      * Generate a random salt using the Base64 alphabet of the given number of
      * characters
      */
-    private String generateRandomSalt(int characters) {
+    private String generateRandomSalt() {
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (int i = 0; i < characters; i++) {
+        for (int i = 0; i < saltSize; i++) {
             stringBuilder.append(BASE64_CHAR_MAPPING[secureRandom.nextInt(64)]);
         }
 
@@ -195,5 +221,15 @@ public class PasswordHasher {
      */
     private int unsignedByteToSignedInt(int value) {
         return value & 0xFF;
+    }
+
+    private int base64CharPosition(char ch) {
+        int position = 0;
+        for (; position < BASE64_CHAR_MAPPING.length; ++position) {
+            if (BASE64_CHAR_MAPPING[position] == ch) {
+                break;
+            }
+        }
+        return position;
     }
 }
