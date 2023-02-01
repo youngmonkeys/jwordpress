@@ -3,7 +3,8 @@
 <suite name="AllTests">
     <test name="All">
         <packages>
-            <package name="org.youngmonkeys.jwordpress.repo.test" />
+            <package name="org.youngmonkeys.jwordpress.test.repo" />
+            <package name="org.youngmonkeys.jwordpress.test.security" />
         </packages>
     </test>
 </suite>
