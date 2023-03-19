@@ -9,6 +9,7 @@
         <version>1.0.5</version>
     </parent>
 
+    <groupId>org.youngmonkeys</groupId>
     <artifactId>jwordpress</artifactId>
     <version>1.0.0</version>
 
