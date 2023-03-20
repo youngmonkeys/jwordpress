@@ -12,6 +12,8 @@ import java.util.List;
 @EzyRepository
 public interface WpTermRepository extends EzyDatabaseRepository<BigInteger, WpTerm> {
 
+    List<WpTerm> findByTermIdGt(BigInteger idExclusive);
+
     @EzyQuery(
         "SELECT e FROM WpTerm e " +
             "WHERE e.termId > ?0 ORDER BY e.termId ASC"

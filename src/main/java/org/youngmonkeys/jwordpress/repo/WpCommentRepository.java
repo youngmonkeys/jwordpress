@@ -13,6 +13,11 @@ import java.util.List;
 @EzyRepository
 public interface WpCommentRepository extends EzyDatabaseRepository<BigInteger, WpComment> {
 
+    List<WpComment> findByCommentIdGt(
+        BigInteger idExclusive,
+        Next next
+    );
+
     @EzyQuery(
         "SELECT e FROM WpComment e " +
             "WHERE e.commentDate > ?0 " +

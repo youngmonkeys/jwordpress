@@ -1,15 +1,17 @@
 package org.youngmonkeys.jwordpress.entity;
 
-import java.math.BigInteger;
-import javax.persistence.*;
-import javax.persistence.Column;
 import lombok.*;
+
+import javax.persistence.*;
+import java.math.BigInteger;
+
+import static org.youngmonkeys.jwordpress.constant.WpTableNames.WP_USER_META;
 
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(name = "wp_usermeta")
+@Table(name = WP_USER_META)
 @AllArgsConstructor
 @NoArgsConstructor
 public class WpUserMeta {

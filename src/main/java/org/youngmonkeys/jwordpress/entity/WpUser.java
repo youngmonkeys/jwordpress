@@ -1,21 +1,24 @@
 package org.youngmonkeys.jwordpress.entity;
 
-import java.time.LocalDateTime;
-import javax.persistence.*;
-import javax.persistence.Column;
 import lombok.*;
+
+import javax.persistence.*;
+import java.math.BigInteger;
+import java.time.LocalDateTime;
+
+import static org.youngmonkeys.jwordpress.constant.WpTableNames.WP_USERS;
 
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(name = "wp_users")
+@Table(name = WP_USERS)
 @AllArgsConstructor
 @NoArgsConstructor
 public class WpUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private BigInteger id;
 
     @Column(name = "user_login")
     private String userLogin;

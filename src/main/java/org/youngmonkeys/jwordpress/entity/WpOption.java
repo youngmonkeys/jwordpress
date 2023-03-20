@@ -1,15 +1,17 @@
 package org.youngmonkeys.jwordpress.entity;
 
-import java.math.BigInteger;
-import javax.persistence.*;
-import javax.persistence.Column;
 import lombok.*;
+
+import javax.persistence.*;
+import java.math.BigInteger;
+
+import static org.youngmonkeys.jwordpress.constant.WpTableNames.WP_OPTIONS;
 
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(name = "wp_options")
+@Table(name = WP_OPTIONS)
 @AllArgsConstructor
 @NoArgsConstructor
 public class WpOption {

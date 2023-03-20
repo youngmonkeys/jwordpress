@@ -6,11 +6,13 @@ import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
+import static org.youngmonkeys.jwordpress.constant.WpTableNames.WP_POSTS;
+
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(name = "wp_posts")
+@Table(name = WP_POSTS)
 @AllArgsConstructor
 @NoArgsConstructor
 public class WpPost {

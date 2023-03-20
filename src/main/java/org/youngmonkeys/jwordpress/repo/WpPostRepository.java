@@ -13,6 +13,12 @@ import java.util.List;
 @EzyRepository
 public interface WpPostRepository extends EzyDatabaseRepository<Long, WpPost> {
 
+    List<WpPost> findByIdGtAndPostStatus(
+        BigInteger idExclusive,
+        String status,
+        Next next
+    );
+
     @EzyQuery(
         "SELECT e FROM WpPost e " +
             "WHERE e.postModified > ?0 OR (e.postModified = ?0 AND e.id > ?1) " +

@@ -1,16 +1,18 @@
 package org.youngmonkeys.jwordpress.entity;
 
+import lombok.*;
+
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-import javax.persistence.*;
-import javax.persistence.Column;
-import lombok.*;
+
+import static org.youngmonkeys.jwordpress.constant.WpTableNames.WP_LINKS;
 
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(name = "wp_links")
+@Table(name = WP_LINKS)
 @AllArgsConstructor
 @NoArgsConstructor
 public class WpLink {
