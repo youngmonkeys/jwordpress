@@ -65,6 +65,7 @@
     </distributionManagement>
     <properties>
         <ezy.version>1.2.5</ezy.version>
+        <ezy.http.version>1.1.4</ezy.http.version>
         <hibernate.version>5.5.7.Final</hibernate.version>
         <hikaricp.version>4.0.3</hikaricp.version>
         <hikaricp.version>4.0.3</hikaricp.version>
@@ -83,6 +84,12 @@
             <artifactId>ezyfox-bean</artifactId>
             <version>${ezy.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.tvd12</groupId>
+            <artifactId>ezyhttp-server-core</artifactId>
+            <version>${ezy.http.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
