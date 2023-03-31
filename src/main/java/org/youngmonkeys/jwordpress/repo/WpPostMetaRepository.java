@@ -6,9 +6,20 @@ import org.youngmonkeys.jwordpress.entity.WpPostMeta;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 @EzyRepository
 public interface WpPostMetaRepository extends EzyDatabaseRepository<BigInteger, WpPostMeta> {
 
     List<WpPostMeta> findByPostId(BigInteger postId);
+
+    Optional<WpPostMeta> findByMetaKeyAndMetaValue(
+        String metaKey,
+        String metaValue
+    );
+
+    Optional<WpPostMeta> findByPostIdAndMetaKey(
+        BigInteger postId,
+        String metaKey
+    );
 }
