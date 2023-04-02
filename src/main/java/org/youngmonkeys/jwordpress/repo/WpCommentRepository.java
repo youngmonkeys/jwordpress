@@ -13,6 +13,8 @@ import java.util.List;
 @EzyRepository
 public interface WpCommentRepository extends EzyDatabaseRepository<BigInteger, WpComment> {
 
+    long countByCommentPostId(BigInteger postId);
+
     List<WpComment> findByCommentIdGt(
         BigInteger idExclusive,
         Next next
