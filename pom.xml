@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.tvd12</groupId>
         <artifactId>ezyfox</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
     </parent>
 
     <groupId>org.youngmonkeys</groupId>
     <artifactId>jwordpress</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <name>jwordpress</name>
     <url>https://github.com/youngmonkeys/jwordpress</url>
@@ -64,10 +64,9 @@
         </site>
     </distributionManagement>
     <properties>
-        <ezy.version>1.2.5</ezy.version>
-        <ezy.http.version>1.1.4</ezy.http.version>
+        <ezy.version>1.2.8</ezy.version>
+        <ezy.http.version>1.1.8</ezy.http.version>
         <hibernate.version>5.5.7.Final</hibernate.version>
-        <hikaricp.version>4.0.3</hikaricp.version>
         <hikaricp.version>4.0.3</hikaricp.version>
         <javax.persistence.version>2.2</javax.persistence.version>
         <javax.transaction.version>1.3</javax.transaction.version>
