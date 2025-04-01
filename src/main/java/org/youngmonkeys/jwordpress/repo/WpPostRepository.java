@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @EzyRepository
-public interface WpPostRepository extends EzyDatabaseRepository<Long, WpPost> {
+public interface WpPostRepository extends EzyDatabaseRepository<BigInteger, WpPost> {
 
     List<WpPost> findByIdGtAndPostStatus(
         BigInteger idExclusive,
