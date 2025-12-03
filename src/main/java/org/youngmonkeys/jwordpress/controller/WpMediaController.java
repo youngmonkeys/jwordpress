@@ -1,5 +1,6 @@
 package org.youngmonkeys.jwordpress.controller;
 
+import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.stream.EzyInputStreamLoader;
 import com.tvd12.ezyfox.util.EzyFileUtil;
 import com.tvd12.ezyhttp.core.exception.HttpBadRequestException;
@@ -9,7 +10,7 @@ import com.tvd12.ezyhttp.server.core.annotation.DoGet;
 import com.tvd12.ezyhttp.server.core.annotation.PathVariable;
 import com.tvd12.ezyhttp.server.core.handler.ResourceRequestHandler;
 import com.tvd12.ezyhttp.server.core.request.RequestArguments;
-import lombok.AllArgsConstructor;
+import lombok.Setter;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -17,12 +18,22 @@ import java.util.function.Supplier;
 
 import static java.util.Collections.singletonMap;
 
-@AllArgsConstructor
+@Setter
 public abstract class WpMediaController {
 
-    protected final EzyInputStreamLoader inputStreamLoader;
-    protected final ResourceDownloadManager resourceDownloadManager;
+    @EzyAutoBind
+    protected EzyInputStreamLoader inputStreamLoader;
+
+    @EzyAutoBind
+    protected ResourceDownloadManager resourceDownloadManager;
+
     protected final Supplier<File> uploadFolderSupplier;
+
+    public WpMediaController(
+        Supplier<File> uploadFolderSupplier
+    ) {
+        this.uploadFolderSupplier = uploadFolderSupplier;
+    }
 
     @Async
     @DoGet("/wp-content/uploads/{fileName}")
@@ -71,13 +82,10 @@ public abstract class WpMediaController {
         String... paths
     ) throws Exception {
         validateFilePaths(paths);
-        File resourcePath = this.uploadFolderSupplier
-            .get()
-            .toPath()
-            .resolve(
-                Paths.get("wordpress", paths)
-            )
-            .toFile();
+        File resourcePath = Paths.get(
+            this.uploadFolderSupplier.get().toString(),
+            paths
+        ).toFile();
         String fileName = paths[paths.length - 1];
         if (!resourcePath.exists()) {
             throw newMediaNotFoundException(fileName);
